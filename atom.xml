@@ -4,7 +4,7 @@
   <title><![CDATA[Neal Peters]]></title>
   <link href="http://nealcpeters.github.io/atom.xml" rel="self"/>
   <link href="http://nealcpeters.github.io/"/>
-  <updated>2014-04-15T17:04:26-05:00</updated>
+  <updated>2014-04-15T17:08:35-05:00</updated>
   <id>http://nealcpeters.github.io/</id>
   <author>
     <name><![CDATA[Neal Peters]]></name>
@@ -18,9 +18,9 @@
     <link href="http://nealcpeters.github.io/blog/2014/04/15/dev-bootcamp-and-beyond/"/>
     <updated>2014-04-15T16:21:52-05:00</updated>
     <id>http://nealcpeters.github.io/blog/2014/04/15/dev-bootcamp-and-beyond</id>
-    <content type="html"><![CDATA[<p>It’s been two weeks since I graduated from Dev Bootcamp, and it’s been three months since I left my job in St. Louis to come to Chicago and learn to code. It’s been an exciting journey. I’ve learned more than I thought possible, made some amazing friends, explored the city, and most importantly - I’ve never looked back.</p>
+    <content type="html"><![CDATA[<p>It’s been two weeks since I graduated from Dev Bootcamp, and it’s been three months since I left my job in St. Louis in order to come to Chicago and learn to code. It’s been an exciting journey. I’ve learned more than I thought possible, made some amazing friends, explored the city, and most importantly - I’ve never looked back.</p>
 
-<p>Now that I’ve graduated, it feels awkward to be at loose ends. Dev Bootcamp held such a structure for me that even being home for anything more than an hour of awake time is a strange feeling. It’s sad to leave the environment at Dev Bootcamp because I’m now responsible for pushing <em>myself</em> to grow as a coder, whereas before I felt as if I was learning by osmosis just by being in the space with how much energy exists there.</p>
+<p>Now that I’ve graduated, it feels awkward to be at loose ends. Dev Bootcamp held such a structure for me that being home for anything more than an hour of awake time is a strange feeling. It’s sad to leave the environment at Dev Bootcamp because I’m now responsible for pushing <em>myself</em> to grow as a coder, whereas before I felt as if I was learning by osmosis just by being in the space.</p>
 
 <p>I’ve been trying to code as much as possible, usually around four hours a day. My first outlet is <a href="http://www.exercism.io">exercism</a>. Exercism provides challenges that take approximately 30 minutes a piece and are accompanied by a test suite. The real benefit, however, is the community aspect to the site. Participants are encouraged to “nitpick” other’s code in order to provide advice on refactoring. The community as a whole places a high value on writing object oriented code broken up into methods with a single responsbility, as opposed to what could be a simpler, functional answer. I value that sort of approach because I believe it will make me a stronger coder when I enter the workforce. Code that makes up a larger code base needs to be modular so that it’s easy to maintain and refactor.</p>
 
