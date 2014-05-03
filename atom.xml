@@ -4,7 +4,7 @@
   <title><![CDATA[Neal Peters]]></title>
   <link href="http://nealcpeters.github.io/atom.xml" rel="self"/>
   <link href="http://nealcpeters.github.io/"/>
-  <updated>2014-04-15T17:13:17-05:00</updated>
+  <updated>2014-05-03T14:01:49-05:00</updated>
   <id>http://nealcpeters.github.io/</id>
   <author>
     <name><![CDATA[Neal Peters]]></name>
@@ -12,6 +12,137 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Designing a Hash Map]]></title>
+    <link href="http://nealcpeters.github.io/blog/2014/05/03/designing-a-hash-map/"/>
+    <updated>2014-05-03T13:09:53-05:00</updated>
+    <id>http://nealcpeters.github.io/blog/2014/05/03/designing-a-hash-map</id>
+    <content type="html"><![CDATA[<p>Dev Bootcamp gave me a phenomenal start on learning programming and web development as a craft, but I have some significant gaps when it comes to knowledge of data structures, algorithms, computational complexity, and other computer science theory related topics. For interview preparation, I’ve spent some time going over these topics and trying to create a data structure from scratch using object oriented design.</p>
+
+<p>A hash map, or simply a hash in Ruby, is an associate array. Associative in this context means that the data structure maps keys to values. A hash map uses a hash function to compute an index to a bucket, from which the corresponding value can be found.</p>
+
+<p>This is actually really easy in Ruby. One can create a new hash by something as simple as the following:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">associative_array</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">#alternatively</span>
+</span><span class="line">
+</span><span class="line"><span class="n">associative_array</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>If you want to add keys and values, the syntax is as follows:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">associative_array</span><span class="o">[</span><span class="ss">:atlas</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;cat&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>In the last example, the symbol <code>:atlas</code> is the key, and the string <code>"cat"</code> is the value. </p>
+
+<p>Now, that was Ruby 101. A more interesting question is how to actually design and build the data structure from scratch. Ruby is amazing in the sense that an associative array is so easy to create and manipulate, but what if the class wasn’t at immediate disposal? Here’s my rough solution:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">HashMap</span>
+</span><span class="line">  <span class="kp">attr_reader</span> <span class="ss">:container</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class="line">    <span class="vi">@container</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">set_default</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@default</span> <span class="o">=</span> <span class="n">value</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">)</span>
+</span><span class="line">    <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@container</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">]</span>
+</span><span class="line">    <span class="k">else</span>
+</span><span class="line">      <span class="vi">@container</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="n">key</span><span class="p">,</span> <span class="vi">@default</span><span class="o">]</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@container</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">bucket</span><span class="o">|</span>
+</span><span class="line">      <span class="n">bucket</span><span class="o">.</span><span class="n">clear</span> <span class="k">if</span> <span class="n">bucket</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">key</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@container</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">bucket</span><span class="o">|</span>
+</span><span class="line">      <span class="n">bucket</span><span class="o">.</span><span class="n">each_with_index</span> <span class="k">do</span> <span class="o">|</span><span class="n">subject</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+</span><span class="line">        <span class="nb">puts</span> <span class="n">bucket</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">key</span> <span class="o">==</span> <span class="n">subject</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">keys</span>
+</span><span class="line">    <span class="vi">@container</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">bucket</span><span class="o">|</span>
+</span><span class="line">      <span class="nb">puts</span> <span class="n">bucket</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">values</span>
+</span><span class="line">    <span class="vi">@container</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">bucket</span><span class="o">|</span>
+</span><span class="line">      <span class="nb">puts</span> <span class="n">bucket</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I know it has issues; it might even be completely wrong. The best idea I had was to model each key value pair as an array comprised of two elements, and for the hash to be a simple multi-dimensional array. However, I think I have all of the basic functionality. You can create a new hash, set default values, add key value pairs, access key value pairs, and view just the keys or values for the entire hash map.</p>
+
+<p>As for computational complexity, I don’t know how my model matches up compared to a better design. That said, time complexity on average for a hash map on search, insertion, or deletion is O(1), while at worst is O(n). At worst, its space complexity is O(n). </p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Dev Bootcamp and Beyond]]></title>

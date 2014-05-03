@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Neal Peters</title>
+  <title>Designing a Hash Map - Neal Peters</title>
   <meta name="author" content="Neal Peters">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nealcpeters.github.io">
+  <link rel="canonical" href="http://nealcpeters.github.io/blog/2014/05/03/designing-a-hash-map">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Neal Peters" type="application/atom+xml">
@@ -48,27 +48,15 @@
 </ul>
 
 </nav>
-  <header role="banner"><hgroup>
-	
-  <h1><a href="/">Neal Peters</a></h1>
-  
-    <h2>Lover of all things tech, sailing, music, and the outdoors</h2>
-  
-</hgroup>
-
-</header> 
   
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/05/03/designing-a-hash-map/">Designing a Hash Map</a></h1>
+      <h1 class="entry-title">Designing a Hash Map</h1>
     
     
       <p class="meta">
@@ -91,7 +79,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Dev Bootcamp gave me a phenomenal start on learning programming and web development as a craft, but I have some significant gaps when it comes to knowledge of data structures, algorithms, computational complexity, and other computer science theory related topics. For interview preparation, I’ve spent some time going over these topics and trying to create a data structure from scratch using object oriented design.</p>
+<div class="entry-content"><p>Dev Bootcamp gave me a phenomenal start on learning programming and web development as a craft, but I have some significant gaps when it comes to knowledge of data structures, algorithms, computational complexity, and other computer science theory related topics. For interview preparation, I’ve spent some time going over these topics and trying to create a data structure from scratch using object oriented design.</p>
 
 <p>A hash map, or simply a hash in Ruby, is an associate array. Associative in this context means that the data structure maps keys to values. A hash map uses a hash function to compute an index to a bucket, from which the corresponding value can be found.</p>
 
@@ -215,22 +203,16 @@
 
 <p>As for computational complexity, I don’t know how my model matches up compared to a better design. That said, time complexity on average for a hash map on search, insertion, or deletion is O(1), while at worst is O(n). At worst, its space complexity is O(n). </p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/15/dev-bootcamp-and-beyond/">Dev Bootcamp and Beyond</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Neal Peters</span></span>
+
+      
 
 
 
@@ -242,41 +224,38 @@
   
 
 
-<time datetime="2014-04-15T16:21:52-05:00" pubdate data-updated="true">Apr 15<span>th</span>, 2014</time>
-        
-      </p>
+<time datetime="2014-05-03T13:09:53-05:00" pubdate data-updated="true">May 3<span>rd</span>, 2014</time>
+      
+
+
+    </p>
     
-  </header>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://nealcpeters.github.io/blog/2014/05/03/designing-a-hash-map/" data-via="" data-counturl="http://nealcpeters.github.io/blog/2014/05/03/designing-a-hash-map/" >Tweet</a>
+  
+  
+  
+</div>
 
-
-  <div class="entry-content"><p>It’s been two weeks since I graduated from Dev Bootcamp, and it’s been three months since I left my job in St. Louis in order to come to Chicago and learn to code. It’s been an exciting journey. I’ve learned more than I thought possible, made some amazing friends, explored the city, and most importantly - I’ve never looked back.</p>
-
-<p>Now that I’ve graduated, it feels awkward to be at loose ends. Dev Bootcamp held such a structure for me that being home for anything more than an hour of awake time is a strange feeling. It’s sad to leave the environment at Dev Bootcamp because I’m now responsible for pushing <em>myself</em> to grow as a coder, whereas before I felt as if I was learning by osmosis just by being in the space.</p>
-
-<p>I’ve been trying to code as much as possible in my new found free time. My first outlet is <a href="http://www.exercism.io">exercism</a>. Exercism provides challenges that take approximately 30 minutes a piece and are accompanied by a test suite. The real benefit, however, is the community aspect to the site. Participants are encouraged to “nitpick” other’s code in order to provide advice on refactoring. The community as a whole places a high value on writing object oriented code broken up into methods with a single responsbility, as opposed to what could be a simpler, functional answer. I value that sort of approach because I believe it will make me a stronger coder when I enter the workforce. Code that makes up a larger code base needs to be modular so that it’s easy to maintain and refactor.</p>
-
-<p>In addition to vanilla coding exercises, I attended the Science Hack Day hackathon at the Adler Planetarium this last weekend. I ended up on a team with two fellow Dev Bootcamp graduates, two freshmen computer science students from Northwestern, and a PhD astronomer. We created a web app named StarChild that accepts a person’s age, weight, and location, and then produces a number of interesting trivia analogous to that person’s relationship with the universe. For instance, based on a person’s age, the app calculates the number of stars close enough to Earth whose light has had the time to reach them. Based on a person’s weight, the app calculates the energy an individual has by virtue of being on the Earth and revolving around the Sun, but in interesting units, e.g.: atomic bombs, lightning bolts, candy bars. What’s most exciting, however, is that our entry won the judge’s choice award. I won a bunch of planetarium knickknacks like a paper weight and some astronomy books, as well as a Github tshirt. I’m mostly excited about the tshirt, to be perfectly honest. You can check out the source <a href="https://github.com/nealcpeters/StarChild">here</a>.</p>
-
-<p>I’m working on a simple Rails site I’m hoping to deploy over the next couple days. It’s a fun project I’ve been working on with my friend and roommate dedicated to happiness. Surely we can all use more of that.</p>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/04/15/dev-bootcamp-and-beyond/" title="Previous Post: Dev Bootcamp and Beyond">&laquo; Dev Bootcamp and Beyond</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     
   
 </aside>
+
 
     </div>
   </div>
