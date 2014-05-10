@@ -4,7 +4,7 @@
   <title><![CDATA[Neal Peters]]></title>
   <link href="http://nealcpeters.github.io/atom.xml" rel="self"/>
   <link href="http://nealcpeters.github.io/"/>
-  <updated>2014-05-04T14:32:09-05:00</updated>
+  <updated>2014-05-10T12:46:17-05:00</updated>
   <id>http://nealcpeters.github.io/</id>
   <author>
     <name><![CDATA[Neal Peters]]></name>
@@ -14,11 +14,24 @@
 
   
   <entry>
+    <title type="html"><![CDATA[More on Hash Tables]]></title>
+    <link href="http://nealcpeters.github.io/blog/2014/05/10/more-on-hash-tables/"/>
+    <updated>2014-05-10T12:36:58-05:00</updated>
+    <id>http://nealcpeters.github.io/blog/2014/05/10/more-on-hash-tables</id>
+    <content type="html"><![CDATA[<p>Someone forwarded me this illuminating lecture on hash tables. The most interesting part, I believe, is the section on what a hash function is and does. My previous code was <em>so</em> wrong. But hey, that’s learning, right?</p>
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/UPo-M8bzRrc "></iframe></div>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Designing a Hash Map]]></title>
     <link href="http://nealcpeters.github.io/blog/2014/05/03/designing-a-hash-map/"/>
     <updated>2014-05-03T13:09:53-05:00</updated>
     <id>http://nealcpeters.github.io/blog/2014/05/03/designing-a-hash-map</id>
-    <content type="html"><![CDATA[<p>Dev Bootcamp gave me a phenomenal start on learning programming and web development as a craft, but I have some significant gaps when it comes to my knowledge of data structures, algorithms, computational complexity, and other computer science theory related topics. For interview preparation, I’ve spent some time going over these topics and trying to create a data structure from scratch using object oriented design.</p>
+    <content type="html"><![CDATA[<p>DISCLAIMER: I now realize how horribly mistaken I am with this code. I’m leaving it on my blog to show that I’m not embarassed to be wrong or to learn.</p>
+
+<p>Dev Bootcamp gave me a phenomenal start on learning programming and web development as a craft, but I have some significant gaps when it comes to my knowledge of data structures, algorithms, computational complexity, and other computer science theory related topics. For interview preparation, I’ve spent some time going over these topics and trying to create a data structure from scratch using object oriented design.</p>
 
 <p>A hash map, or simply a hash in Ruby, is an associate array. Associative in this context means that the data structure maps keys to values. A hash map uses a hash function to compute an index to a bucket, from which the corresponding value can be found.</p>
 
