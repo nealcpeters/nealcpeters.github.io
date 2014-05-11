@@ -4,7 +4,7 @@
   <title><![CDATA[Neal Peters]]></title>
   <link href="http://nealcpeters.github.io/atom.xml" rel="self"/>
   <link href="http://nealcpeters.github.io/"/>
-  <updated>2014-05-10T12:46:17-05:00</updated>
+  <updated>2014-05-11T11:28:21-05:00</updated>
   <id>http://nealcpeters.github.io/</id>
   <author>
     <name><![CDATA[Neal Peters]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[More on Data Structures: Circular Buffer]]></title>
+    <link href="http://nealcpeters.github.io/blog/2014/05/11/more-on-data-structures-circular-buffer/"/>
+    <updated>2014-05-11T11:01:06-05:00</updated>
+    <id>http://nealcpeters.github.io/blog/2014/05/11/more-on-data-structures-circular-buffer</id>
+    <content type="html"><![CDATA[<p>A circular buffer is a data structure that uses a fixed size buffer, which simulates being connected in a circle. It will remove the oldest element first, regardless of its position in the structure. If the buffer is full, it starts overwriting the oldest elements.</p>
+
+<p>This is pretty easy to model with an array, as the oldest information will always be at index 0, and Ruby’s built in shift method makes it simple to remove it.</p>
+
+<p>Here’s what I came up with:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">CircularBuffer</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@limit</span> <span class="o">=</span> <span class="n">limit</span>
+</span><span class="line">    <span class="vi">@buffer</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">read</span>
+</span><span class="line">    <span class="k">raise</span> <span class="no">BufferEmptyException</span> <span class="k">if</span> <span class="vi">@buffer</span><span class="o">.</span><span class="n">empty?</span>
+</span><span class="line">    <span class="vi">@buffer</span><span class="o">.</span><span class="n">shift</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</span><span class="line">    <span class="k">raise</span> <span class="no">BufferNilException</span> <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="kp">nil</span>
+</span><span class="line">    <span class="k">raise</span> <span class="no">BufferFullException</span> <span class="k">if</span> <span class="vi">@buffer</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;=</span> <span class="vi">@limit</span>
+</span><span class="line">    <span class="vi">@buffer</span> <span class="o">&lt;&lt;</span> <span class="n">element</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">write!</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@buffer</span><span class="o">.</span><span class="n">shift</span>
+</span><span class="line">    <span class="vi">@buffer</span> <span class="o">&lt;&lt;</span> <span class="n">element</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">clear</span>
+</span><span class="line">    <span class="vi">@buffer</span><span class="o">.</span><span class="n">clear</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">BufferNilException</span> <span class="o">&lt;</span> <span class="no">Exception</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">BufferEmptyException</span> <span class="o">&lt;</span> <span class="no">Exception</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">BufferFullException</span> <span class="o">&lt;</span> <span class="no">Exception</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[More on Hash Tables]]></title>
