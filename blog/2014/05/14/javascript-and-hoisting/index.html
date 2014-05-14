@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript and Hoisting - Neal Peters</title>
+  <meta name="author" content="Neal Peters">
+
+  
+  <meta name="description" content="Hoisting is JavaScript’s way of moving all declarations to the top of the current scope. Take the following code, for example: 1
+2
+3
+4
+5
+6
+7
+8
+9
+10 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nealcpeters.github.io/blog/2014/05/14/javascript-and-hoisting">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Neal Peters" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Noto+Serif:400,700' rel='stylesheet' type='text/css'>
+<!-- <link href="/favicon.png" rel="icon"> -->
+
+
+  
+
+</head>
+
+<body    class="collapse-sidebar sidebar-footer" >
+  <nav id="main-nav" role="navigation">
+<ul class="main-navigation">
+  <li><a href="/" class="nav-link">Blog</a></li>
+  <li><a href="/blog/archives" class="nav-link">Archives</a></li>
+  <!-- <li><a href="/atom.xml" class="nav-link">RSS</a></li> -->
+  <li><a href="https://github.com/nealcpeters" class="nav-link">Github</a></li>
+  <li><a href="https://twitter.com/nealcpeters" class="nav-link">Twitter</a></li>
+  <li><a href="https://www.linkedin.com/in/nealcpeters" class="nav-link">LinkedIn</a></li>
+</ul>
+
+</nav>
+  
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">JavaScript and Hoisting</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-14T18:05:01-05:00" pubdate data-updated="true">May 14<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Hoisting is JavaScript’s way of moving all declarations to the top of the current scope. Take the following code, for example:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">function</span> <span class="nx">theBridgeOfHoistingDoom</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">balrog</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;fire&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">ring</span><span class="p">;</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">elf</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;pointy ears&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="nx">ring</span> <span class="o">=</span> <span class="nx">wizard</span><span class="p">;</span>
+</span><span class="line">  <span class="nx">wizard</span> <span class="o">=</span> <span class="nx">balrog</span><span class="p">;</span>
+</span><span class="line">  <span class="k">return</span> <span class="nx">wizard</span><span class="p">();</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">balrog</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;whip&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">wizard</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;white&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">power</span> <span class="o">=</span> <span class="nx">ring</span><span class="p">();</span>
+</span><span class="line">  <span class="k">return</span> <span class="nx">elf</span><span class="p">();</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">elf</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;immortal&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>As the interpreter loads this code, it will go through the following process:</p>
+
+<ol>
+  <li>All declared variables are initialized as undefined. </li>
+  <li>Any loaded function gets overwritten by a function with the same name and dissapears from its place in the load order.</li>
+  <li>Declared functions that replace others do not take over the previous version, but will fall into load order behind a loaded function</li>
+  <li>Any code that is unreachable at the time it’s processed will be discarded.</li>
+</ol>
+
+<p>In the end, we’re left with this hoisted version:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">function</span> <span class="nx">theBridgeOfHoistingDoom</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">ring</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">power</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">balrog</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;whip&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">wizard</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;white&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">elf</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="s2">&quot;immortal&quot;</span><span class="p">;</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="nx">ring</span> <span class="o">=</span> <span class="nx">wizard</span><span class="p">;</span>
+</span><span class="line">  <span class="nx">wizard</span> <span class="o">=</span> <span class="nx">balrog</span><span class="p">;</span>
+</span><span class="line">  <span class="k">return</span> <span class="nx">wizard</span><span class="p">();</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Javascript code can be difficult to write without a proper understanding of this concept, as it can be easy to create functions or return values which are never actualized if not set properly within the parent function.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Neal Peters</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-14T18:05:01-05:00" pubdate data-updated="true">May 14<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://nealcpeters.github.io/blog/2014/05/14/javascript-and-hoisting/" data-via="" data-counturl="http://nealcpeters.github.io/blog/2014/05/14/javascript-and-hoisting/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/11/more-on-data-structures-circular-buffer/" title="Previous Post: More on Data Structures: Circular Buffer">&laquo; More on Data Structures: Circular Buffer</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Neal Peters -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
