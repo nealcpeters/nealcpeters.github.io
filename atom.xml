@@ -4,7 +4,7 @@
   <title><![CDATA[Neal Peters]]></title>
   <link href="http://nealcpeters.github.io/atom.xml" rel="self"/>
   <link href="http://nealcpeters.github.io/"/>
-  <updated>2014-05-14T18:26:26-05:00</updated>
+  <updated>2014-05-14T19:34:42-05:00</updated>
   <id>http://nealcpeters.github.io/</id>
   <author>
     <name><![CDATA[Neal Peters]]></name>
@@ -18,7 +18,7 @@
     <link href="http://nealcpeters.github.io/blog/2014/05/14/javascript-and-hoisting/"/>
     <updated>2014-05-14T18:05:01-05:00</updated>
     <id>http://nealcpeters.github.io/blog/2014/05/14/javascript-and-hoisting</id>
-    <content type="html"><![CDATA[<p>Hoisting is JavaScript’s way of moving all declarations to the top of the current scope. Take the following code, for example:</p>
+    <content type="html"><![CDATA[<p>Hoisting is JavaScript’s way of moving all declarations to the top of the current scope. Rather than having variables and functions be available when they are declared, they might actually be available beforehand. Take the following code, for example:</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
