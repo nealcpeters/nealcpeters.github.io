@@ -9,7 +9,7 @@
   <meta name="author" content="Neal Peters">
 
   
-  <meta name="description" content="Every programmer encounters error messages. There may be a difference in quantity as a developer grows more experienced, but the fact of the matter &hellip;">
+  <meta name="description" content="Most of my coding lately has been done with Javascript in an attempt to sharp my front end skills. I don’t want my Ruby skills to become dull in the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -62,6 +62,164 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/08/exercism-and-refactoring/">Growing in Technique and Style</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T15:57:43-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Most of my coding lately has been done with Javascript in an attempt to sharp my front end skills. I don’t want my Ruby skills to become dull in the process, so I practice regularly with <a href="http://exercism.io/">exercism</a>.</p>
+
+<p>To be sure, it keeps my Ruby muscles stretched, but its also improved my coding style cross-language. The easiest, quickest answer is not always the best, or the most modular, or the most DRY, or the most simple.</p>
+
+<p>Take the following prompt and code, for example.</p>
+
+<blockquote>
+  <p>Write a program that manages robot factory settings.</p>
+
+  <p>When robots come off the factory floor, they have no name.</p>
+
+  <p>The first time you boot them up, a random name is generated, such as RX837 or BC811.</p>
+
+  <p>Every once in a while we need to reset a robot to its factory settings, which means that their name gets wiped. The next time you ask, it gets a new name.</p>
+</blockquote>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Robot</span>
+</span><span class="line">
+</span><span class="line">  <span class="kp">attr_reader</span> <span class="ss">:name</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class="line">    <span class="vi">@name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="o">.</span><span class="n">.</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">reset</span>
+</span><span class="line">    <span class="vi">@name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="o">.</span><span class="n">.</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This code meets the criteria via a simple, two method class. It was my first solution, but I wasn’t happy with it. For starters, initialize and reset contain the same code, which isn’t DRY. Secondly, the way I’m generating random robot names is hackey. It works, but it’s not pretty. I started refactoring and came up with this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Robot</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">name</span>
+</span><span class="line">    <span class="vi">@name</span> <span class="o">||=</span> <span class="n">name_generator</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">reset</span>
+</span><span class="line">    <span class="vi">@name</span> <span class="o">=</span> <span class="n">name_generator</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="kp">private</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">name_generator</span>
+</span><span class="line">    <span class="nb">name</span> <span class="o">=</span> <span class="o">[*</span><span class="s2">&quot;A&quot;</span><span class="o">.</span><span class="n">.</span><span class="s2">&quot;Z&quot;</span><span class="o">].</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">join</span> <span class="o">+</span> <span class="o">[*</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="o">].</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">join</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>By separating the random name generation into its own method I’m able to keep the code DRY and the logic separated. This solution is cleaner and easier to maintain (if it were part of a larger application, obviously), despite adding another method. I was still unhappy with the name generation logic. Selecting the letters and numbers should be done in separate instances.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Robot</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">name</span>
+</span><span class="line">    <span class="vi">@name</span> <span class="o">||=</span> <span class="n">name_generator</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">reset</span>
+</span><span class="line">    <span class="vi">@name</span> <span class="o">=</span> <span class="n">name_generator</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="kp">private</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">name_generator</span>
+</span><span class="line">    <span class="nb">name</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class="line">    <span class="nb">name</span> <span class="o">&lt;&lt;</span> <span class="o">[*</span><span class="s2">&quot;A&quot;</span><span class="o">.</span><span class="n">.</span><span class="s2">&quot;Z&quot;</span><span class="o">].</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class="line">    <span class="nb">name</span> <span class="o">&lt;&lt;</span> <span class="o">[*</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="o">].</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class="line">    <span class="nb">name</span><span class="o">.</span><span class="n">join</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This final solution simplifies the name generation by separating the letter and number generation, making it easier to read, and calls join on the end product instead of on each sample. There is zero difference in output from this version and my original, but I know without any doubt which version is better.</p>
+
+<p>In the end, a simple exercise to flex my Ruby muscles results in me not just staying sharp with the language, but also grows my overall <em>technique</em> and <em>style</em>, which are skills I can apply to any language I’m writing. </p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
